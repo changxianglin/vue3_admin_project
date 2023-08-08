@@ -10,9 +10,11 @@
     "lint": "eslint src",
     "test": "",
     "fix": "eslint src --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preinstall": "node ./scripts/preinstall"
   },
   "dependencies": {
+    "element-plus": "^2.3.9",
     "vue": "^3.3.4"
   },
   "devDependencies": {
