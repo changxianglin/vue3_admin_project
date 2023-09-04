@@ -10,7 +10,7 @@ import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import App from './App.vue'
+import App from '@/App.vue'
 
 const app = createApp(App)
 
