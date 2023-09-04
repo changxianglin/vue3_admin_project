@@ -17,6 +17,7 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
+3. [reference connection](https://www.bilibili.com/video/BV1Xh411V7b5/?spm_id_from=333.337.search-card.all.click)
 
 pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node
 eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser
