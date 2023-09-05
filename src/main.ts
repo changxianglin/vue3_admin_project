@@ -22,7 +22,9 @@ app.use(ElementPlus, {
   locale: zhCn,
 })
 
+import 'virtual:svg-icons-register'
 
-console.log(import.meta.env)
+
+// console.log(import.meta.env) 
 app.mount('#app')
 
