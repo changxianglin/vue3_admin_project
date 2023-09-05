@@ -12,6 +12,10 @@
   </div> -->
   <div>
     <h3>svg test</h3>
+
+    <svg style="width: 30px; height: 30px;">
+      <use xlink:href="#icon-phone" fill="red"></use>
+    </svg>
   </div>
 </template>
 
