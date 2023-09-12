@@ -11,6 +11,7 @@
     />
   </div> -->
   <div>
+    <h1>test</h1>
     <h3>svg test</h3>
     <SvgIcon name="phone" color="red" width="100px" height="100px" />
   </div>
@@ -20,5 +21,8 @@
   // import { Plus, Edit, Delete } from '@element-plus/icons-vue'
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  h1 {
+    color: $color;
+  }
 </style>

@@ -17,5 +17,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve('./src')
     }
+  },
+  // scss global
+  css: {
+    preprocessorOptions: {
+      scss: {
+        javascriptEnabled: true,
+        additionalData: '@import "./src/styles/variable.scss";'
+      }
+    }
   }
 })

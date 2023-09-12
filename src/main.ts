@@ -32,6 +32,8 @@ import 'virtual:svg-icons-register'
 import globalComponent from '@/components'
 app.use(globalComponent)
 
+import '@/styles/index.scss'
+
 // console.log(import.meta.env) 
 app.mount('#app')
 
