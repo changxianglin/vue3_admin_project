@@ -12,7 +12,7 @@
   </div> -->
   <div>
     <h3>svg test</h3>
-    <SvgIcon />
+    <SvgIcon name="phone" color="red" width="100px" height="100px" />
   </div>
 </template>
 
