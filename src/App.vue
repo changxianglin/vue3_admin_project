@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
   // import { Plus, Edit, Delete } from '@element-plus/icons-vue'
-  import SvgIcon from '@/components/SvgIcon/index.vue'
 </script>
 
 <style scoped>

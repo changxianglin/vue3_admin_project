@@ -25,6 +25,13 @@ app.use(ElementPlus, {
 import 'virtual:svg-icons-register'
 
 
+// import SvgIcon from '@/components/SvgIcon/index.vue'
+
+// app.component('SvgIcon', SvgIcon)
+
+import globalComponent from '@/components'
+app.use(globalComponent)
+
 // console.log(import.meta.env) 
 app.mount('#app')
 
