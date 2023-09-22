@@ -33,4 +33,13 @@ request.interceptors.response.use((response) => {
       message = '网络出现问题'
       break;
   }
+
+  ElMessage({
+    type: 'error',
+    message,
+  })
+
+  return Promise.reject(error)
 })
+
+export default request

@@ -11,6 +11,7 @@
     />
   </div> -->
   <div>
+    <h1>test axios request</h1>
     <h1>test</h1>
     <h3>svg test</h3>
     <SvgIcon name="phone" color="red" width="100px" height="100px" />
@@ -19,6 +20,21 @@
 
 <script setup lang="ts">
   // import { Plus, Edit, Delete } from '@element-plus/icons-vue'
+  import { onMounted } from 'vue'
+  import request from '@/utils/request'
+
+  onMounted(() => {
+    request({
+      url: '/user/login',
+      method: 'post',
+      data: {
+        username: 'admin',
+        password: '111111'
+      }
+    }).then((res) => {
+      console.log(res)
+    })
+  })
 </script>
 
 <style scoped lang="scss">
