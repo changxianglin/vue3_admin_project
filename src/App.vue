@@ -11,10 +11,11 @@
     />
   </div> -->
   <div>
-    <h1>test axios request</h1>
+    <!-- <h1>test axios request</h1>
     <h1>test</h1>
     <h3>svg test</h3>
-    <SvgIcon name="phone" color="red" width="100px" height="100px" />
+    <SvgIcon name="phone" color="red" width="100px" height="100px" /> -->
+    <router-view></router-view>
   </div>
 </template>
 

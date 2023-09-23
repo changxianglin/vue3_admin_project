@@ -11,6 +11,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from '@/App.vue'
+import router from './router'
 
 const app = createApp(App)
 
@@ -46,5 +47,6 @@ import '@/styles/index.scss'
 // })
 
 // console.log(import.meta.env) 
+app.use(router)
 app.mount('#app')
 
