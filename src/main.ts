@@ -12,6 +12,7 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from '@/App.vue'
 import router from './router'
+import pinia from './store'
 
 const app = createApp(App)
 
@@ -48,5 +49,6 @@ import '@/styles/index.scss'
 
 // console.log(import.meta.env) 
 app.use(router)
+app.use(pinia)
 app.mount('#app')
 
