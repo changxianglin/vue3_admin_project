@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { loginForm } from '@/api/user/type'
+import type { loginForm, loginResponseData } from '@/api/user/type'
 import { reqLogin } from '@/api/user'
 
 const useUserStore = defineStore('User', {
@@ -11,7 +11,7 @@ const useUserStore = defineStore('User', {
 
   actions: {
     async userLogin(data: loginForm) {
-      const result: any = await reqLogin(data)
+      const result: loginResponseData = await reqLogin(data)
       if(result.code == 200) {
         this.token = result.data.token
         localStorage.setItem('TOKEN', result.data.token)
