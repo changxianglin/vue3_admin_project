@@ -3,13 +3,13 @@
     <el-row>
       <el-col :span="12" :xs="0">占位文字</el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>Hello</h1>
           <h2>welcome to xxx</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
           </el-form-item>
           <el-form-item>
@@ -33,6 +33,8 @@ const router = useRouter()
 
 const useStore = useUserStore()
 
+const loginForms = ref()
+
 const loginForm = reactive({
   username: 'admin',
   password: '111111',
@@ -41,6 +43,7 @@ const loginForm = reactive({
 const loading = ref<boolean>(false)
 
 const login = async () => {
+  await loginForms.value.validate()
   loading.value = true
   try {
     await useStore.userLogin(loginForm)
@@ -58,6 +61,15 @@ const login = async () => {
       message: (error as Error).message,
     })
   }
+}
+
+const rules = {
+  username: [
+    { required: true, min: 6, max: 10, message: '账号长度至少6位', trigger: 'change'}
+  ],
+  password: [
+    { required: true, min: 6, max: 15, message: '密码长度至少6位', trigger: 'change',}
+  ],
 }
 
 </script>
