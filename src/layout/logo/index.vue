@@ -1,12 +1,12 @@
 <template>
-  <div class="logo">
+  <div class="logo" v-if="setting.logoHidden">
     <img src="" alt="" />
-    <p>模仿后台管理平台</p>
+    <p>{{ setting.title }}</p>
   </div>
 </template>
 
 <script lang='ts' setup>
-
+import setting from '@/setting'
 </script>
 
 <style lang='scss' scoped>
