@@ -2,9 +2,21 @@
   <div class="layout_container">
     <div class="layout_slider">
       <Logo />
-      <!-- menu -->
+      <!-- menu scroller -->
       <el-scrollbar class="scrollbar">
-        <p v-for="item in 2000" :key="item" class="scrollbar-demo-item">{{item}}</p>
+        <el-menu background-color="#001529" text-color="#fff">
+          <el-menu-item index="1">首页</el-menu-item>
+          <el-menu-item index="2">数据大屏</el-menu-item>
+          <!-- 折叠 -->
+          <el-sub-menu index="3">
+            <template #title>
+              <span>权限管理</span>
+            </template>
+            <el-menu-item index="2-1">用户管理</el-menu-item>
+            <el-menu-item index="2-2">角色管理</el-menu-item>
+            <el-menu-item index="2-3">菜单管理</el-menu-item>
+          </el-sub-menu>
+        </el-menu>
       </el-scrollbar>
     </div>
     <div class="layout_tabbar"></div>
