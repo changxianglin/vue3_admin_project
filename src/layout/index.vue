@@ -10,13 +10,16 @@
       </el-scrollbar>
     </div>
     <div class="layout_tabbar"></div>
-    <div class="layout_main"></div>
+    <div class="layout_main">
+      <Main></Main>
+    </div>
   </div>
 </template>
 
 <script lang='ts' setup>
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
+import Main from './main/index.vue'
 
 import useUserStore from '@/store/modules/user'
 

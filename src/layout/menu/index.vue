@@ -13,7 +13,7 @@
     </template>
     <!-- 一个子路由 -->
     <template v-if="item.children && item.children.length == 1">
-      <el-menu-item :index="item.children[0].path" v-if="!item.children[0].meta.hidden">
+      <el-menu-item :index="item.children[0].path" v-if="!item.children[0].meta.hidden" @click="goRoute">
         <template #title>
           <el-icon>
             <component :is="item.children[0].meta.icon"></component>
@@ -36,10 +36,14 @@
 </template>
 
 <script lang='ts' setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
 defineProps(['menuList'])
 
-const goRoute = (vc) => {
-  console.log(vc)
+const goRoute = (vc: any) => {
+  router.push(vc.index)
 }
 </script>
 
