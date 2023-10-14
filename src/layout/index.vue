@@ -9,7 +9,9 @@
         </el-menu>
       </el-scrollbar>
     </div>
-    <div class="layout_tabbar"></div>
+    <div class="layout_tabbar">
+      <Tabbar />
+    </div>
     <div class="layout_main">
       <Main></Main>
     </div>
@@ -21,6 +23,7 @@ import { useRoute } from 'vue-router'
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
 import Main from './main/index.vue'
+import Tabbar from './tabbar/index.vue'
 
 import useUserStore from '@/store/modules/user'
 
@@ -32,11 +35,11 @@ const route = useRoute()
 .layout_container {
   width: 100%;
   height: 100vh;
-  color: #fff;
   .layout_slider {
     width: $base-menu-width;
     height: 100vh;
     background: $base-menu-background;
+    color: #fff;
 
     .scrollbar {
       width: 100%;
@@ -52,7 +55,6 @@ const route = useRoute()
     left: $base-menu-width;
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    background: cyan;
   }
   .layout_main {
     position: absolute;
