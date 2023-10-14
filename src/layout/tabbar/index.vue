@@ -1,23 +1,17 @@
 <template>
   <div class="tabbar">
     <div class="tabbar_left">
-      <el-icon style="margin-right: 10px;">
-        <Expand />
-      </el-icon>
-      <!--  -->
-      <el-breadcrumb separator-icon="ArrowRight">
-        <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      </el-breadcrumb>
+      <Breadcrumb />
     </div>
     <div class="tabbar_right">
-      <el-button type="primary" size="small" icon="Refresh" circle></el-button>
+      <Setting />
     </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-
+import Breadcrumb from './breadcrumb/index.vue'
+import Setting from './Setting/index.vue'
 </script>
 
 <style lang='scss' scoped>
@@ -26,11 +20,17 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
+  background-image: linear-gradient(to right, rgb(232, 223, 223,), rgb(201, 178, 178), rgb(197,165,165));
 
   .tabbar_left {
     display: flex;
     align-items: center;
     margin-left: 20px;
+  }
+
+  .tabbar_right {
+    display: flex;
+    align-items: center;
   }
 }
 </style>
