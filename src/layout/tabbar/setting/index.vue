@@ -1,5 +1,5 @@
 <template>
-      <el-button size="small" icon="Refresh" circle></el-button>
+      <el-button size="small" icon="Refresh" circle @click="updateRefsh"></el-button>
       <el-button size="small" icon="FullScreen" circle></el-button>
       <el-button size="small" icon="Setting" circle></el-button>
       <img src="../../../../public/vite.svg" alt="" style="width: 24px; height: 24px; margin: 0 10px;" />
@@ -20,7 +20,13 @@
 </template>
 
 <script lang='ts' setup>
+import userLayoutSettingStore from '@/store/modules/setting';
 
+const layoutSettingStore = userLayoutSettingStore()
+
+const updateRefsh = () => {
+  layoutSettingStore.refsh = !layoutSettingStore.refsh
+}
 </script>
 
 <script lang="ts">

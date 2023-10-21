@@ -4,6 +4,7 @@ const userLayoutSettingStore = defineStore('SettingStore', {
   state: () => {
     return {
       fold: false,
+      refsh: false,
     }
   }
 })
