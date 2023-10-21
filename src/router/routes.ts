@@ -11,10 +11,11 @@ export const constantRoute = [
   },
   {
     path: '/',
-    name: 'home',
+    name: 'layout',
     component: () => import('@/layout/index.vue'),
+    redirect: 'home', 
     meta: {
-      title: 'layout',
+      title: '',
       hidden: false,
       icon: 'Avatar',
     },
@@ -44,6 +45,7 @@ export const constantRoute = [
     path: '/acl',
     name: 'acl',
     component: () => import('@/layout/index.vue'),
+    redirect: '/acl/user',
     meta: {
       title: '权限管理',
       hidden: false,
@@ -52,7 +54,7 @@ export const constantRoute = [
     children: [
       {
         path: '/acl/user',
-        name: 'acl',
+        name: 'user',
         component: () => import('@/views/acl/user/index.vue'),
         meta: {
           title: '用户管理',
@@ -86,6 +88,7 @@ export const constantRoute = [
     path: '/product',
     name: 'product',
     component: () => import('@/layout/index.vue'),
+    redirect: '/product/trademark',
     meta: {
       title: '商品管理',
       hidden: false,
