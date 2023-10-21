@@ -1,12 +1,18 @@
 <template>
   <div class="logo" v-if="setting.logoHidden">
-    <img src="" alt="" />
+    <img src="../../../public/vite.svg" alt="" />
     <p>{{ setting.title }}</p>
   </div>
 </template>
 
 <script lang='ts' setup>
 import setting from '@/setting'
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Logo',
+}
 </script>
 
 <style lang='scss' scoped>
@@ -16,7 +22,7 @@ import setting from '@/setting'
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     img {
       width: 40px;
       height: 40px;

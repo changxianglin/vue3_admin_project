@@ -23,6 +23,12 @@
 
 </script>
 
+<script lang="ts">
+export default {
+  name: 'Setting',
+}
+</script>
+
 <style lang='scss' scoped>
 
 </style>

@@ -1,18 +1,18 @@
 <template>
   <div class="layout_container">
-    <div class="layout_slider">
+    <div class="layout_slider" :class="{fload: layoutSettingStore.fold ? true : false}">
       <Logo />
       <!-- menu scroller -->
       <el-scrollbar class="scrollbar">
-        <el-menu background-color="#001529" text-color="#fff" :default-active="route.path">
+        <el-menu :collapse="layoutSettingStore.fold ? true : false" background-color="#001529" text-color="#fff" :default-active="route.path">
           <Menu :menuList="userStore.menuRoutes" />
         </el-menu>
       </el-scrollbar>
     </div>
-    <div class="layout_tabbar">
+    <div class="layout_tabbar" :class="{fload: layoutSettingStore.fold ? true : false}">
       <Tabbar />
     </div>
-    <div class="layout_main">
+    <div class="layout_main" :class="{fload: layoutSettingStore.fold ? true : false}">
       <Main></Main>
     </div>
   </div>
@@ -26,9 +26,18 @@ import Main from './main/index.vue'
 import Tabbar from './tabbar/index.vue'
 
 import useUserStore from '@/store/modules/user'
+import userLayoutSettingStore from '@/store/modules/setting'
 
 const userStore = useUserStore()
+const layoutSettingStore = userLayoutSettingStore()
+
 const route = useRoute()
+</script>
+
+<script lang="ts">
+export default {
+  name: 'Layout',
+}
 </script>
 
 <style lang='scss' scoped>
@@ -40,6 +49,7 @@ const route = useRoute()
     height: 100vh;
     background: $base-menu-background;
     color: #fff;
+    transition: all 0.3s;
 
     .scrollbar {
       width: 100%;
@@ -48,6 +58,9 @@ const route = useRoute()
         border-right: none;
       }
     }
+    &.fload {
+      width: $base-menu-min-width;
+    }
   }
   .layout_tabbar {
     position: fixed;
@@ -55,6 +68,11 @@ const route = useRoute()
     left: $base-menu-width;
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
+    transition: all 0.3s;
+    &.fload {
+      width: calc(100vw - $base-menu-min-width);
+      left: $base-menu-min-width;
+    }
   }
   .layout_main {
     position: absolute;
@@ -65,6 +83,11 @@ const route = useRoute()
     background-color: yellowgreen;
     padding: 20px;
     overflow: auto;
+    transition: all 0.3s;
+    &.fload {
+      width: calc(100vw - $base-menu-min-width);
+      left: $base-menu-min-width;
+    }
   }
 }
 </style>
