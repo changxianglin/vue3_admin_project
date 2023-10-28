@@ -2,11 +2,11 @@
       <el-button size="small" icon="Refresh" circle @click="updateRefsh"></el-button>
       <el-button size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
       <el-button size="small" icon="Setting" circle></el-button>
-      <img src="../../../../public/vite.svg" alt="" style="width: 24px; height: 24px; margin: 0 10px;" />
+      <img :src="userStore.avatar" alt="" style="width: 24px; height: 24px; margin: 0 10px; border-radius: 50%;" />
       <!-- dropdown -->
       <el-dropdown>
         <span class="el-dropdown-link">
-          admin
+          {{ userStore.username }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -21,8 +21,10 @@
 
 <script lang='ts' setup>
 import userLayoutSettingStore from '@/store/modules/setting';
+import useUserStore from '@/store/modules/user';
 
 const layoutSettingStore = userLayoutSettingStore()
+const userStore = useUserStore()
 
 const updateRefsh = () => {
   layoutSettingStore.refsh = !layoutSettingStore.refsh

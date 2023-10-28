@@ -2,7 +2,7 @@ function createUserList() {
   return [
     {
       userId: 1,
-      avatar: '',
+      avatar: 'https://upload.jianshu.io/users/upload_avatars/26445143/1f0480c3-d74f-4f60-b188-cdc9b231a104.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
       username: 'admin',
       password: '111111',
       desc: '平台管理员',
@@ -13,7 +13,7 @@ function createUserList() {
     },
     {
       userId: 2,
-      avatar: '',
+      avatar: 'https://upload.jianshu.io/users/upload_avatars/26445143/1f0480c3-d74f-4f60-b188-cdc9b231a104.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
       username: 'system',
       password: '111111',
       desc: '平台管理员',
@@ -46,9 +46,9 @@ export default [
   },
   {
     url: '/api/user/info',
-    method: 'get',
+    method: 'post',
     response: (request) => {
-      const token = request.header.token
+      const token = request.headers.token
 
       const checkUser = createUserList().find((item) => item.token === token)
 
