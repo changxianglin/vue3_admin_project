@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type { loginForm, loginResponseData } from '@/api/user/type'
 import type { UserState } from './types/type'
 import { reqLogin, reqUserInfo } from '@/api/user'
-import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
+import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由数据
 import { constantRoute } from '@/router/routes'
 
@@ -34,6 +34,12 @@ const useUserStore = defineStore('User', {
         this.username = result.data.checkUser.username
         this.avatar = result.data.checkUser.avatar
       } 
+    },
+    async userLogout() {
+      this.username = ''
+      this.avatar = ''
+      this.token = ''
+      REMOVE_TOKEN()
     }
   },
 

@@ -13,18 +13,22 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
 </template>
 
 <script lang='ts' setup>
+import { nextTick } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import userLayoutSettingStore from '@/store/modules/setting';
 import useUserStore from '@/store/modules/user';
 
 const layoutSettingStore = userLayoutSettingStore()
 const userStore = useUserStore()
+const router = useRouter()
+const route = useRoute()
 
 const updateRefsh = () => {
   layoutSettingStore.refsh = !layoutSettingStore.refsh
@@ -37,6 +41,19 @@ const fullScreen = () => {
   } else {
     document.exitFullscreen()
   }
+}
+
+const logout = () => {
+  console.log('logout')
+  userStore.userLogout()
+  nextTick(() => {
+    router.push({
+      path: '/login', 
+      query: {
+        redirect: route.path
+      }
+    })
+  })
 }
 </script>
 
