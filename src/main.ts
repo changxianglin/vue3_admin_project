@@ -39,8 +39,7 @@ import '@/styles/index.scss'
 app.use(router)
 app.use(pinia)
 
-import permission from './permission'
-console.log(123)
+import './permission'
 
 app.mount('#app')
 

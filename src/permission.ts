@@ -1,12 +1,13 @@
 import router from "@/router";
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'
 
-console.log('1234')
-
-router.beforeEach((to: any, from: any) => {
-  console.log(4444)
+router.beforeEach((to: any, from: any, next: any) => {
+  NProgress.start()
+  next()
 })
 
 
 router.afterEach((to: any, from: any) => {
-  console.log(3333)
+  NProgress.done()
 })
