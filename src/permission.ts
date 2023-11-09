@@ -1,13 +1,16 @@
 import router from "@/router";
+import setting from "./setting";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
+NProgress.configure({showSpinner: false})
 import useUserStore from "./store/modules/user";
 import pinia from "./store";
 const userStore = useUserStore(pinia)
 
 console.log(userStore)
 
-router.beforeEach((to: any, from: any, next: any) => {
+router.beforeEach(async(to: any, from: any, next: any) => {
+  document.title = setting.title + '-' + to.meta.title
   NProgress.start()
   const token = userStore.token
   const userName = userStore.username
@@ -18,7 +21,13 @@ router.beforeEach((to: any, from: any, next: any) => {
       if(userName) {
         next()
       } else {
-        
+        try {
+          await userStore.userInfo()
+          next()
+        } catch (error) {
+          userStore.userLogout()
+          next({path: '/login', query: {redirect: to.path}})
+        }
       }
     }
   } else {
