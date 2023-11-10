@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
 import type { UserState } from './types/type'
+import type { 
+  loginFormData, 
+  loginResponseData,
+  userInfoResponseData,
+} from '@/api/user/type'
 import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由数据
@@ -16,8 +21,8 @@ const useUserStore = defineStore('User', {
   },
 
   actions: {
-    async userLogin(data: any) {
-      const result: any = await reqLogin(data)
+    async userLogin(data: loginFormData) {
+      const result: loginResponseData = await reqLogin(data)
       if(result.code == 200) {
         this.token = (result.data as string)
         // localStorage.setItem('TOKEN', (result.data.token as string))
@@ -28,7 +33,7 @@ const useUserStore = defineStore('User', {
       }
     },
     async userInfo() {
-      const result = await reqUserInfo()
+      const result: userInfoResponseData = await reqUserInfo()
       if(result.code == 200) {
         this.username = result.data.name
         this.avatar = result.data.avatar
@@ -38,7 +43,7 @@ const useUserStore = defineStore('User', {
       }
     },
     async userLogout() {
-      const result = await reqLogout()
+      const result: any = await reqLogout()
       if(result.code == 200) {
         this.username = ''
         this.avatar = ''
