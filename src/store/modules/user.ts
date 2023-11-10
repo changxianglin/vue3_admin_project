@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
-import type { loginForm, loginResponseData } from '@/api/user/type'
 import type { UserState } from './types/type'
-import { reqLogin, reqUserInfo } from '@/api/user'
+import { reqLogin, reqUserInfo, reqLogout } from '@/api/user'
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 // 引入路由数据
 import { constantRoute } from '@/router/routes'
@@ -17,32 +16,38 @@ const useUserStore = defineStore('User', {
   },
 
   actions: {
-    async userLogin(data: loginForm) {
-      const result: loginResponseData = await reqLogin(data)
+    async userLogin(data: any) {
+      const result: any = await reqLogin(data)
       if(result.code == 200) {
-        this.token = (result.data.token as string)
+        this.token = (result.data as string)
         // localStorage.setItem('TOKEN', (result.data.token as string))
-        SET_TOKEN((result.data.token as string))
+        SET_TOKEN((result.data as string))
         return 'ok'
       } else {
-        return Promise.reject(new Error(result.data.message))
+        return Promise.reject(new Error(result.data))
       }
     },
     async userInfo() {
       const result = await reqUserInfo()
       if(result.code == 200) {
-        this.username = result.data.checkUser.username
-        this.avatar = result.data.checkUser.avatar
+        this.username = result.data.name
+        this.avatar = result.data.avatar
         return 'ok'
       } else {
-        return Promise.reject('获取用户信息失败')
+        return Promise.reject(new Error(result.message))
       }
     },
     async userLogout() {
-      this.username = ''
-      this.avatar = ''
-      this.token = ''
-      REMOVE_TOKEN()
+      const result = await reqLogout()
+      if(result.code == 200) {
+        this.username = ''
+        this.avatar = ''
+        this.token = ''
+        REMOVE_TOKEN()
+        return 'ok'
+      } else {
+        return Promise.reject(new Error(result.message))
+      }
     }
   },
 

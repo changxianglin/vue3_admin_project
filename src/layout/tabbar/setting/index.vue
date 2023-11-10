@@ -43,9 +43,9 @@ const fullScreen = () => {
   }
 }
 
-const logout = () => {
+const logout = async () => {
   console.log('logout')
-  userStore.userLogout()
+  await userStore.userLogout()
   nextTick(() => {
     router.push({
       path: '/login', 
