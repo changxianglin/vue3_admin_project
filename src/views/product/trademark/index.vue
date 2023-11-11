@@ -6,8 +6,17 @@
     <el-table style="margin: 10px 0px;" border :data="trademark">
       <el-table-column label="序号" width="80px" align="center" type="index"></el-table-column>
       <el-table-column label="品牌名称" prop="tmName"></el-table-column>
-      <el-table-column label="品牌LOGO"></el-table-column>
-      <el-table-column label="品牌操作"></el-table-column>
+      <el-table-column label="品牌LOGO">
+        <template #="{row, $index}">
+          <img :src="row.logoUrl" style="width: 100px; height: 100px;" />
+        </template>
+      </el-table-column>
+      <el-table-column label="品牌操作">
+        <template #="{row, $index}">
+          <el-button type="primary" size="small" icon="Edit"></el-button>
+          <el-button type="danger" size="small" icon="Delete"></el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <!-- pagination -->
     <el-pagination 
