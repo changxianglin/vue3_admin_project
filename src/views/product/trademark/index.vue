@@ -19,7 +19,7 @@
       </el-table-column>
     </el-table>
     <!-- pagination -->
-    <el-pagination v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
+    <el-pagination page-count="" v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
       layout="prev, pager, next, jumper, ->, sizes, total," :total="total" @size-change="handleSizeChange"
       @current-change="handleCurrentChange" />
   </el-card>
@@ -44,6 +44,14 @@ const getHasTrademark = async () => {
     total.value = result.data.total
     trademark.value = result.data.records
   }
+}
+
+const handleSizeChange = () => {
+  console.log(1234)
+}
+
+const handleCurrentChange = () => {
+  console.log(34)
 }
 </script>
 
