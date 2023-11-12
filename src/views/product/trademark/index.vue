@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <!-- button -->
-    <el-button type="primary" size="default" icon="Plus" @click="">添加品牌</el-button>
+    <el-button type="primary" size="default" icon="Plus" @click="addTradeMark">添加品牌</el-button>
     <!-- table -->
     <el-table style="margin: 10px 0px;" border :data="trademark">
       <el-table-column label="序号" width="80px" align="center" type="index"></el-table-column>
@@ -13,7 +13,7 @@
       </el-table-column>
       <el-table-column label="品牌操作">
         <template #="{ row, $index }">
-          <el-button type="primary" size="small" icon="Edit"></el-button>
+          <el-button type="primary" size="small" icon="Edit" @click="updateTrademark"></el-button>
           <el-button type="danger" size="small" icon="Delete"></el-button>
         </template>
       </el-table-column>
@@ -49,6 +49,14 @@ const getHasTrademark = async (pager: number = 1) => {
     total.value = result.data.total
     trademark.value = result.data.records
   }
+}
+
+const addTradeMark = () => {
+  dialogFormVisible.value = true
+}
+
+const updateTrademark = () => {
+  dialogFormVisible.value = true
 }
 
 const handleSizeChange = () => {
