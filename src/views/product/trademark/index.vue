@@ -23,6 +23,9 @@
       layout="prev, pager, next, jumper, ->, sizes, total," :total="total" @size-change="handleSizeChange"
       @current-change="handleCurrentChange" />
   </el-card>
+  <!-- dialog -->
+  <el-dialog v-model="dialogFormVisible" title="添加品牌">
+  </el-dialog>
 </template>
 
 <script lang='ts' setup>
@@ -33,12 +36,14 @@ const pageNo = ref<number>(1)
 const limit = ref<number>(3)
 const total = ref<number>(0)
 const trademark = ref<Records>([])
+const dialogFormVisible = ref<boolean>(false)
 
 onMounted(() => {
   getHasTrademark()
 })
 
-const getHasTrademark = async () => {
+const getHasTrademark = async (pager: number = 1) => {
+  pageNo.value = pager
   const result: TradeMarkResponseData = await reqHasTrademark(pageNo.value, limit.value)
   if (result.code == 200) {
     total.value = result.data.total
@@ -47,11 +52,11 @@ const getHasTrademark = async () => {
 }
 
 const handleSizeChange = () => {
-  console.log(1234)
+  getHasTrademark()
 }
 
-const handleCurrentChange = () => {
-  console.log(34)
+const handleCurrentChange = (index: number) => {
+  getHasTrademark(index)
 }
 </script>
 
