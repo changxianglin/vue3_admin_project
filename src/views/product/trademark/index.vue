@@ -14,17 +14,36 @@
       <el-table-column label="品牌操作">
         <template #="{ row, $index }">
           <el-button type="primary" size="small" icon="Edit" @click="updateTrademark"></el-button>
-          <el-button type="danger" size="small" icon="Delete"></el-button>
+          <el-button type="danger" size="small" icon="Delete" @click="deleteTrademark"></el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- pagination -->
-    <el-pagination page-count="" v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]" :background="true"
-      layout="prev, pager, next, jumper, ->, sizes, total," :total="total" @size-change="handleSizeChange"
-      @current-change="handleCurrentChange" />
+    <el-pagination page-count="" v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3, 5, 7, 9]"
+      :background="true" layout="prev, pager, next, jumper, ->, sizes, total," :total="total"
+      @size-change="handleSizeChange" @current-change="handleCurrentChange" />
   </el-card>
   <!-- dialog -->
   <el-dialog v-model="dialogFormVisible" title="添加品牌">
+    <el-form style="width: 80%;">
+      <el-form-item label="品牌名称" label-width="90px">
+        <el-input placeholder="请您输入品牌名称"></el-input>
+      </el-form-item>
+      <el-form-item label="品牌LOGO" label-width="90px">
+        <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+          :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <el-icon v-else class="avatar-uploader-icon">
+            <Plus />
+          </el-icon>
+        </el-upload>
+      </el-form-item>
+    </el-form>
+    <!-- footer -->
+    <template #footer>
+      <el-button type="parimary" size="default" @click="cancel">取消</el-button>
+      <el-button type="parimary" size="default" @click="confirm">确定</el-button>
+    </template>
   </el-dialog>
 </template>
 
@@ -59,6 +78,10 @@ const updateTrademark = () => {
   dialogFormVisible.value = true
 }
 
+const deleteTrademark = () => {
+  console.log('delete')
+}
+
 const handleSizeChange = () => {
   getHasTrademark()
 }
@@ -66,6 +89,43 @@ const handleSizeChange = () => {
 const handleCurrentChange = (index: number) => {
   getHasTrademark(index)
 }
+
+const cancel = () => {
+  dialogFormVisible.value = false
+}
+
+const confirm = () => {
+  dialogFormVisible.value = false
+}
 </script>
 
-<style lang='less' scoped></style>
+<style scoped>
+.avatar-uploader .avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>
+
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed var(--el-border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  text-align: center;
+}
+</style>
