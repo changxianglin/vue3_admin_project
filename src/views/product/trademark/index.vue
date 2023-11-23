@@ -27,10 +27,10 @@
   <el-dialog v-model="dialogFormVisible" title="添加品牌">
     <el-form style="width: 80%;">
       <el-form-item label="品牌名称" label-width="90px">
-        <el-input placeholder="请您输入品牌名称"></el-input>
+        <el-input placeholder="请您输入品牌名称" v-model="trademarkParams.tmName"></el-input>
       </el-form-item>
       <el-form-item label="品牌LOGO" label-width="90px">
-        <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+        <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload"
           :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
           <img v-if="imageUrl" :src="imageUrl" class="avatar" />
           <el-icon v-else class="avatar-uploader-icon">
@@ -48,14 +48,21 @@
 </template>
 
 <script lang='ts' setup>
-import { ref, onMounted } from 'vue'
+import type { UploadProps } from 'element-plus'
+import { ref, onMounted, reactive } from 'vue'
 import { reqHasTrademark } from '@/api/product/trademark'
-import type { TradeMarkResponseData, Records } from '@/api/product/trademark/type'
+import type { TradeMarkResponseData, Records, TradeMark } from '@/api/product/trademark/type'
+import { ElMessage } from 'element-plus'
+
 const pageNo = ref<number>(1)
 const limit = ref<number>(3)
 const total = ref<number>(0)
 const trademark = ref<Records>([])
 const dialogFormVisible = ref<boolean>(false)
+const trademarkParams = reactive<TradeMark>({
+  tmName: '',
+  logoUrl: '',
+})
 
 onMounted(() => {
   getHasTrademark()
@@ -96,6 +103,17 @@ const cancel = () => {
 
 const confirm = () => {
   dialogFormVisible.value = false
+}
+
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+  if (rawFile.type !== 'image/jpeg') {
+    ElMessage.error('Avatar picture must be JPG format!')
+    return false
+  } else if (rawFile.size / 1024 / 1024 > 2) {
+    ElMessage.error('Avatar picture size can not exceed 2MB!')
+    return false
+  }
+  return true
 }
 </script>
 
