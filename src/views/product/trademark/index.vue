@@ -50,7 +50,7 @@
 <script lang='ts' setup>
 import type { UploadProps } from 'element-plus'
 import { ref, onMounted, reactive } from 'vue'
-import { reqHasTrademark } from '@/api/product/trademark'
+import { reqHasTrademark, reqAddOrUpdateTrademark } from '@/api/product/trademark'
 import type { TradeMarkResponseData, Records, TradeMark } from '@/api/product/trademark/type'
 import { ElMessage } from 'element-plus'
 
@@ -79,6 +79,8 @@ const getHasTrademark = async (pager: number = 1) => {
 
 const addTradeMark = () => {
   dialogFormVisible.value = true
+  trademarkParams.logoUrl = ''
+  trademarkParams.tmName = ''
 }
 
 const updateTrademark = () => {
@@ -101,8 +103,22 @@ const cancel = () => {
   dialogFormVisible.value = false
 }
 
-const confirm = () => {
-  dialogFormVisible.value = false
+const confirm = async () => {
+  const result: any = await reqAddOrUpdateTrademark(trademarkParams)
+  if(result.code == 200) {
+    dialogFormVisible.value = false
+    ElMessage({
+      type: 'success',
+      message: '添加品牌成功',
+    })
+    getHasTrademark()
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '添加品牌失败'
+    })
+    dialogFormVisible.value = false
+  }
 }
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
