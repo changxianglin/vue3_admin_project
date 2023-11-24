@@ -25,11 +25,11 @@
   </el-card>
   <!-- dialog -->
   <el-dialog v-model="dialogFormVisible" :title="trademarkParams.id ? '修改品牌': '添加品牌'">
-    <el-form style="width: 80%;">
-      <el-form-item label="品牌名称" label-width="90px">
+    <el-form style="width: 80%;" :model="trademarkParams" :rules="rules">
+      <el-form-item label="品牌名称" label-width="90px" prop="tmName">
         <el-input placeholder="请您输入品牌名称" v-model="trademarkParams.tmName"></el-input>
       </el-form-item>
-      <el-form-item label="品牌LOGO" label-width="90px">
+      <el-form-item label="品牌LOGO" label-width="90px" prop="logoUrl">
         <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload"
           :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
           <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
@@ -148,6 +148,17 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     })
     return false
   }
+}
+
+const validatorTmName = (rule: any, value: any, callback: any) => {
+  
+}
+
+const rules = {
+  tmName: [
+    {required: true, trigger: 'blur', validator: validatorTmName}
+  ],
+  logoUrl: [],
 }
 </script>
 
