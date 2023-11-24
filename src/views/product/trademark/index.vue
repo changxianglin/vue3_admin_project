@@ -32,7 +32,7 @@
       <el-form-item label="品牌LOGO" label-width="90px">
         <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload"
           :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
           <el-icon v-else class="avatar-uploader-icon">
             <Plus />
           </el-icon>
@@ -105,15 +105,31 @@ const confirm = () => {
   dialogFormVisible.value = false
 }
 
+const handleAvatarSuccess: UploadProps['onSuccess'] = (
+  response,
+  uploadFile
+) => {
+  trademarkParams.logoUrl = response.data
+}
+
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
-    return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
+  if (rawFile.type == 'image/jpeg' || rawFile.type == 'image/png' || rawFile.type == 'image/gif') {
+    if (rawFile.size / 1024 / 1024 < 4) {
+      return true
+    } else {
+      ElMessage({
+        type: 'error',
+        message: '上传文件大小必须小雨 4MB!'
+      })
+      return false
+    }
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '上传文件格式务必 PNG|JPG|jpeg'
+    })
     return false
   }
-  return true
 }
 </script>
 
