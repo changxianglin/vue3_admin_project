@@ -25,11 +25,11 @@
   </el-card>
   <!-- dialog -->
   <el-dialog v-model="dialogFormVisible" :title="trademarkParams.id ? '修改品牌': '添加品牌'">
-    <el-form style="width: 80%;" :model="trademarkParams" :rules="rules">
-      <el-form-item label="品牌名称" label-width="90px" prop="tmName">
+    <el-form style="width: 80%;" :model="trademarkParams" :rules="rules" ref="formRef">
+      <el-form-item label="品牌名称" label-width="100px" prop="tmName">
         <el-input placeholder="请您输入品牌名称" v-model="trademarkParams.tmName"></el-input>
       </el-form-item>
-      <el-form-item label="品牌LOGO" label-width="90px" prop="logoUrl">
+      <el-form-item label="品牌LOGO" label-width="100px" prop="logoUrl">
         <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload"
           :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
           <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
@@ -49,7 +49,7 @@
 
 <script lang='ts' setup>
 import type { UploadProps } from 'element-plus'
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, nextTick } from 'vue'
 import { reqHasTrademark, reqAddOrUpdateTrademark } from '@/api/product/trademark'
 import type { TradeMarkResponseData, Records, TradeMark } from '@/api/product/trademark/type'
 import { ElMessage } from 'element-plus'
@@ -63,6 +63,7 @@ const trademarkParams = reactive<TradeMark>({
   tmName: '',
   logoUrl: '',
 })
+const formRef = ref()
 
 onMounted(() => {
   getHasTrademark()
@@ -82,9 +83,18 @@ const addTradeMark = () => {
   trademarkParams.logoUrl = ''
   trademarkParams.tmName = ''
   trademarkParams.id = undefined
+
+  nextTick(() => {
+    formRef.value.clearValidate('tmName')
+    formRef.value.clearValidate('logoUrl')
+  })
 }
 
 const updateTrademark = (row: TradeMark) => {
+  nextTick(() => {
+    formRef.value.clearValidate('tmName')
+    formRef.value.clearValidate('logoUrl')
+  })
   Object.assign(trademarkParams, row)
   dialogFormVisible.value = true
 }
@@ -106,6 +116,7 @@ const cancel = () => {
 }
 
 const confirm = async () => {
+  await formRef.value.validate()
   const result: any = await reqAddOrUpdateTrademark(trademarkParams)
   if(result.code == 200) {
     dialogFormVisible.value = false
@@ -128,6 +139,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   uploadFile
 ) => {
   trademarkParams.logoUrl = response.data
+  formRef.value.clearValidate('logoUrl')
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
@@ -151,14 +163,28 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 }
 
 const validatorTmName = (rule: any, value: any, callback: any) => {
-  
+  if(value.trim().length >= 2) {
+    callback()
+  } else {
+    callback(new Error('品牌位数大于等于两位'))
+  }
+}
+
+const validatorLogoUrl = (rule: any, value: any, callback: any) => {
+  if(value) {
+    callback()
+  } else {
+    callback(new Error('LOGO 图片务必上传'))
+  }
 }
 
 const rules = {
   tmName: [
     {required: true, trigger: 'blur', validator: validatorTmName}
   ],
-  logoUrl: [],
+  logoUrl: [
+    { required: true, trigger: 'change', validator: validatorLogoUrl}
+  ],
 }
 </script>
 
