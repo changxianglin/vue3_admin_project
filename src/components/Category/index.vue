@@ -3,8 +3,8 @@
     <el-card>
       <el-form :inline="true">
         <el-form-item label="一级分类">
-          <el-select v-model="c1Id">
-            <el-option :label="c1.name" v-for="(c1, index) in c1Arr" :key="c1.id" :value="c1.id"></el-option>
+          <el-select v-model="categoryStore.c1Id">
+            <el-option :label="c1.name" v-for="(c1, index) in categoryStore.c1Arr" :key="c1.id" :value="c1.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="二级分类">
@@ -30,21 +30,16 @@
 
 <script lang='ts' setup>
 import { onMounted, ref } from 'vue';
-import { reqC1 } from '@/api/product/attr'
+import useCategoryStore from '@/store/modules/category';
 
-const c1Arr = ref<any>([])
-const c1Id = ref<number|string>('')
+const categoryStore = useCategoryStore()
 
 onMounted(() => {
   getC1()
 })
 
 const getC1 = async () => {
-  const result = await reqC1()
-  console.log(result)
-  if(result.code == 200) {
-    c1Arr.value = result.data
-  }
+  categoryStore.getC1()
 }
 </script>
 

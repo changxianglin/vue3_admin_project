@@ -38,7 +38,8 @@ const loginForms = ref()
 
 const loginForm = reactive({
   username: 'admin',
-  password: 'atguigu123',
+  // password: 'atguigu123',
+  password: 111111,
 })
 
 const loading = ref<boolean>(false)
