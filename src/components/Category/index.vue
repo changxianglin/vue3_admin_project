@@ -44,7 +44,7 @@ const handler = () => {
 }
 
 const handler1 = () => {
-  categoryStore.c3Id = ''
+  categoryStore.c3Id = '' 
   categoryStore.getC3()
 }
 </script>
