@@ -39,7 +39,7 @@
 </template>
 
 <script lang='ts' setup>
-import { watch, ref } from 'vue';
+import { watch, ref, reactive } from 'vue';
 import { reqAttr } from '@/api/product/attr';
 import type { AttrResponseData, Attr } from '@/api/product/attr/type';
 
@@ -47,7 +47,14 @@ import useCategoryStore from '@/store/modules/category';
 const categoryStore = useCategoryStore()
 
 const attrArr = ref<Attr[]>([])
-const scene = ref<number>(1)
+const scene = ref<number>(0)
+
+const attrParams = reactive<Attr>({
+  attrName: '',
+  attrValueList: [],
+  categoryId: '',
+  categoryLevel: 3,
+})
 
 watch(() => categoryStore.c3Id, () => {
   attrArr.value = []
