@@ -31,12 +31,13 @@
         <el-table-column label="序号" width="80px" type="index" align="center"></el-table-column>
         <el-table-column label="属性值">
           <template #="{row, $index}">
-            <input placeholder="请输入属性值名称" v-model="row.valueName" />
+            <el-input v-if="row.flag" @blur="toLook(row)" placeholder="请输入属性值名称" v-model="row.valueName" />
+            <div v-else @click="toEdit(row)">{{ row.valueName }}</div>
           </template>
         </el-table-column>
         <el-table-column label="属性值操作"></el-table-column>
       </el-table>
-      <el-button type="primary" @click="save">保存</el-button>
+      <el-button type="primary" @click="save" :disabled="attrParams.attrValueList.length ? false : true">保存</el-button>
       <el-button @click="cancel">取消</el-button>
     </div>
     </el-card>
@@ -45,7 +46,7 @@
 <script lang='ts' setup>
 import { watch, ref, reactive } from 'vue';
 import { reqAttr, reqAddOrUpdateAttr } from '@/api/product/attr';
-import type { AttrResponseData, Attr } from '@/api/product/attr/type';
+import type { AttrResponseData, Attr, AttrValue } from '@/api/product/attr/type';
 
 import useCategoryStore from '@/store/modules/category';
 import { ElMessage } from 'element-plus';
@@ -96,6 +97,7 @@ const cancel = () => {
 const addAttrValue = () => {
   attrParams.attrValueList.push({
     valueName: '',
+    flag: true,
   })
 }
 
@@ -114,6 +116,36 @@ const save = async () => {
       message: attrParams.id ? '修改失败': '添加失败'
     })
   }
+}
+
+const toLook = (row: AttrValue, $index: number) => {
+  if(row.valueName.trim() == '') {
+    attrParams.attrValueList.splice($index, 1)
+    ElMessage({
+      type: 'error',
+      message: '属性值不能为空',
+    })
+    return 
+  }
+  const repeat = attrParams.attrValueList.find((item) => {
+      if(item != row) {
+        return item.valueName === row.valueName
+      }
+  })
+
+  if(repeat) {
+    ElMessage({
+      type: 'error',
+      message: '属性值不能重复',
+    })
+    return 
+  }
+
+  row.flag = false
+}
+
+const toEdit = (row: AttrValue) => {
+  row.flag  = true
 }
 </script>
 
