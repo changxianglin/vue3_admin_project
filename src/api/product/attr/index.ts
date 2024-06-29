@@ -13,6 +13,4 @@ export const reqC1 = () => request.get<any, CategoryResponseData>(API.C1_URL)
 export const reqC2 = (category1Id: number|string) => request.get<any, CategoryResponseData>(API.C2_URL+category1Id)
 export const reqC3 = (category2Id: number|string) => request.get<any, CategoryResponseData>(API.C2_URL+category2Id)
 export const reqAttr = (category1Id: number|string, category2Id: number|string, category3Id: number|string) => request.get<any, AttrResponseData>(API.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}`)
-export const reqAddOrUpdateAttr = (data: Attr) => {
-
-}
+export const reqAddOrUpdateAttr = (data: Attr) => request.post<any, any>(API.ADDORUPDATEATTR_URL, data)

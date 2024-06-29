@@ -22,17 +22,21 @@
     <div v-show="scene == 1">
       <el-form :inline="true">
         <el-form-item label="属性名称">
-          <el-input palceholder="请输入属性名称"></el-input>
+          <el-input palceholder="请输入属性名称" v-model="attrParams.attrName"></el-input>
         </el-form-item>
       </el-form>
-      <el-button icon='Plus' type="primary">添加属性</el-button>
+      <el-button :disabled="attrParams.attrName ? false : true" icon='Plus' type="primary" @click="addAttrValue">添加属性</el-button>
       <el-button @click="cancel">取消</el-button>
-      <el-table border style="margin: 10px 0px;">
+      <el-table border style="margin: 10px 0px;" :data="attrParams.attrValueList">
         <el-table-column label="序号" width="80px" type="index" align="center"></el-table-column>
-        <el-table-column label="属性值"></el-table-column>
+        <el-table-column label="属性值">
+          <template #="{row, $index}">
+            <input placeholder="请输入属性值名称" v-model="row.valueName" />
+          </template>
+        </el-table-column>
         <el-table-column label="属性值操作"></el-table-column>
       </el-table>
-      <el-button type="primary">保存</el-button>
+      <el-button type="primary" @click="save">保存</el-button>
       <el-button @click="cancel">取消</el-button>
     </div>
     </el-card>
@@ -40,10 +44,11 @@
 
 <script lang='ts' setup>
 import { watch, ref, reactive } from 'vue';
-import { reqAttr } from '@/api/product/attr';
+import { reqAttr, reqAddOrUpdateAttr } from '@/api/product/attr';
 import type { AttrResponseData, Attr } from '@/api/product/attr/type';
 
 import useCategoryStore from '@/store/modules/category';
+import { ElMessage } from 'element-plus';
 const categoryStore = useCategoryStore()
 
 const attrArr = ref<Attr[]>([])
@@ -71,6 +76,12 @@ const getAttr = async () => {
 }
 
 const addAttr = () => {
+  Object.assign(attrParams, {
+      attrName: '',
+      attrValueList: [],
+      categoryId: categoryStore.c3Id,
+      categoryLevel: 3,
+  })
   scene.value = 1
 }
 
@@ -80,6 +91,29 @@ const updateAttr = () => {
 
 const cancel = () => {
   scene.value = 0
+}
+
+const addAttrValue = () => {
+  attrParams.attrValueList.push({
+    valueName: '',
+  })
+}
+
+const save = async () => {
+  const result: any = await reqAddOrUpdateAttr(attrParams)
+  if(result.code == 200) {
+    scene.value = 0
+    ElMessage({
+      type: 'success',
+      message: attrParams.id ? '修改成功': '添加成功'
+    })
+    getAttr()
+  } else {
+    ElMessage({
+      type: 'error',
+      message: attrParams.id ? '修改失败': '添加失败'
+    })
+  }
 }
 </script>
 
