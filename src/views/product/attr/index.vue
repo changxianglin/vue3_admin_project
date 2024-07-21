@@ -31,7 +31,7 @@
         <el-table-column label="序号" width="80px" type="index" align="center"></el-table-column>
         <el-table-column label="属性值">
           <template #="{row, $index}">
-            <el-input v-if="row.flag" @blur="toLook(row)" placeholder="请输入属性值名称" v-model="row.valueName" />
+            <el-input :ref="(vc: any) => inputArr[$index] = vc" v-if="row.flag" @blur="toLook(row)" placeholder="请输入属性值名称" v-model="row.valueName" />
             <div v-else @click="toEdit(row)">{{ row.valueName }}</div>
           </template>
         </el-table-column>
@@ -61,6 +61,8 @@ const attrParams = reactive<Attr>({
   categoryId: '',
   categoryLevel: 3,
 })
+
+const inputArr = ref<any>([])
 
 watch(() => categoryStore.c3Id, () => {
   attrArr.value = []
