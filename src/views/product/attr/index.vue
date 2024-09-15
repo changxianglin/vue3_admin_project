@@ -44,7 +44,7 @@
 </template>
 
 <script lang='ts' setup>
-import { watch, ref, reactive } from 'vue';
+import { watch, ref, reactive, nextTick } from 'vue';
 import { reqAttr, reqAddOrUpdateAttr } from '@/api/product/attr';
 import type { AttrResponseData, Attr, AttrValue } from '@/api/product/attr/type';
 
@@ -100,6 +100,10 @@ const addAttrValue = () => {
   attrParams.attrValueList.push({
     valueName: '',
     flag: true,
+  })
+
+  nextTick(() => {
+    inputArr.value[attrParams.attrValueList.length - 1].focus()
   })
 }
 
