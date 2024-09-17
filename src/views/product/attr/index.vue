@@ -32,7 +32,7 @@
         <el-table-column label="属性值">
           <template #="{row, $index}">
             <el-input :ref="(vc: any) => inputArr[$index] = vc" v-if="row.flag" @blur="toLook(row)" placeholder="请输入属性值名称" v-model="row.valueName" />
-            <div v-else @click="toEdit(row)">{{ row.valueName }}</div>
+            <div v-else @click="toEdit(row, $index)">{{ row.valueName }}</div>
           </template>
         </el-table-column>
         <el-table-column label="属性值操作"></el-table-column>
@@ -150,8 +150,12 @@ const toLook = (row: AttrValue, $index: number) => {
   row.flag = false
 }
 
-const toEdit = (row: AttrValue) => {
+const toEdit = (row: AttrValue, $index: number) => {
   row.flag  = true
+
+  nextTick(() => {
+    inputArr.value[$index].focus()
+  })
 }
 </script>
 
