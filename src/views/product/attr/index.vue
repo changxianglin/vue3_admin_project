@@ -35,7 +35,11 @@
             <div v-else @click="toEdit(row, $index)">{{ row.valueName }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="属性值操作"></el-table-column>
+        <el-table-column label="属性值操作">
+          <template #="{row, $index}">
+            <el-button type="primary" size="small" icon="Delete" @click="attrParams.attrValueList.splice($index, 1)"></el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <el-button type="primary" @click="save" :disabled="attrParams.attrValueList.length ? false : true">保存</el-button>
       <el-button @click="cancel">取消</el-button>
