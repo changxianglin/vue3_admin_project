@@ -138,6 +138,16 @@ export const constantRoute = [
     ],
   },
   {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/test/index.vue'),
+    meta: {
+      title: 'test',
+      hidden: true,
+      icon: 'Cellphone',
+    },
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import('@/views/404/index.vue'),

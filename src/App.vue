@@ -15,17 +15,25 @@
     <h1>test</h1>
     <h3>svg test</h3>
     <SvgIcon name="phone" color="red" width="100px" height="100px" /> -->
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive :include="[cachesPage]">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 
 <script setup lang="ts">
   // import { Plus, Edit, Delete } from '@element-plus/icons-vue'
-  import { onMounted } from 'vue'
+  import { onMounted, onUpdated, ref } from 'vue'
   import { reqLogin } from './api/user';
+  import { onBeforeRouteUpdate } from 'vue-router';
+
+  const cachesPage = ref('test')
 
   onMounted(() => {
     // reqLogin({username: 'admin', password: '111111'})
+    console.log('每次执行入库')
   })
 </script>
 

@@ -13,7 +13,7 @@
           </el-table-column>
           <el-table-column label="操作" width="120px">
             <template #="{row, index}">
-              <el-button type="primary" size="small" icon="Edit" @click="updateAttr"></el-button>
+              <el-button type="primary" size="small" icon="Edit" @click="updateAttr(row)"></el-button>
               <el-button type="primary" size="small" icon="Delete"></el-button>
             </template>
           </el-table-column>
@@ -92,8 +92,10 @@ const addAttr = () => {
   scene.value = 1
 }
 
-const updateAttr = () => {
+const updateAttr = (row: Attr) => {
   scene.value = 1
+
+  Object.assign(attrParams, JSON.parse(JSON.stringify(row)))
 }
 
 const cancel = () => {
