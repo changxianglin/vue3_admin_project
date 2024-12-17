@@ -14,7 +14,11 @@
           <el-table-column label="操作" width="120px">
             <template #="{row, index}">
               <el-button type="primary" size="small" icon="Edit" @click="updateAttr(row)"></el-button>
-              <el-button type="primary" size="small" icon="Delete"></el-button>
+              <el-popconfirm :title="`你确定删除${row.attrName}?`" @confirm="deleteAttr(row.id)">
+                <template #reference>
+                  <el-button type="primary" size="small" icon="Delete"></el-button>
+                </template>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
@@ -48,8 +52,8 @@
 </template>
 
 <script lang='ts' setup>
-import { watch, ref, reactive, nextTick } from 'vue';
-import { reqAttr, reqAddOrUpdateAttr } from '@/api/product/attr';
+import { watch, ref, reactive, nextTick, onBeforeUnmount } from 'vue';
+import { reqAttr, reqAddOrUpdateAttr, reqRemoveAttr } from '@/api/product/attr';
 import type { AttrResponseData, Attr, AttrValue } from '@/api/product/attr/type';
 
 import useCategoryStore from '@/store/modules/category';
@@ -163,6 +167,26 @@ const toEdit = (row: AttrValue, $index: number) => {
     inputArr.value[$index].focus()
   })
 }
+
+const deleteAttr = async (attrId: number) => {
+  const result: any = await reqRemoveAttr(attrId)
+  if(result.code == 200) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+    getAttr()
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '删除失败',
+    })
+  }
+}
+
+onBeforeUnmount(() => {
+  categoryStore.$reset()
+})
 </script>
 
 <style lang='less' scoped>
