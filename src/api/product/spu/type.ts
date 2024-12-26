@@ -26,3 +26,13 @@ export interface HasSpuResponseData extends ResponseData {
     pages: number;
   }
 }
+
+export interface Trademark {
+  id: number;
+  tmName: string;
+  logoUrl: string;
+}
+
+export interface AllTradeMark extends ResponseData {
+  data: Trademark[]
+}

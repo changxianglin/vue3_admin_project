@@ -13,7 +13,7 @@
           <el-table-column label="SPU操作">
             <template #default="scope">
               <el-button  size="small" icon="Plus" title="添加SKU"></el-button>
-              <el-button type="info" size="small" icon="Edit" title="修改SKU" @click="updateSpu"></el-button>
+              <el-button type="success" size="small" icon="Edit" title="修改SKU" @click="updateSpu"></el-button>
               <el-button type="primary" size="small" icon="View" title="添加SKU"></el-button>
               <el-button type="primary" size="small" icon="Delete" title="添加SKU"></el-button>
             </template>
