@@ -13,7 +13,7 @@
           <el-table-column label="SPU操作">
             <template #default="scope">
               <el-button  size="small" icon="Plus" title="添加SKU"></el-button>
-              <el-button type="success" size="small" icon="Edit" title="修改SKU" @click="updateSpu"></el-button>
+              <el-button type="success" size="small" icon="Edit" title="修改SKU" @click="updateSpu(scope.row)"></el-button>
               <el-button type="primary" size="small" icon="View" title="添加SKU"></el-button>
               <el-button type="primary" size="small" icon="Delete" title="添加SKU"></el-button>
             </template>
@@ -31,14 +31,14 @@
         />
       </div>
 
-      <SpuForm v-show="scene == 1" @changeScene="changeScene" />
+      <SpuForm ref="spu" v-show="scene == 1" @changeScene="changeScene" />
       <SkuForm v-show="scene == 2"/>
     </el-card>
   </div>
 </template>
 
 <script lang='ts' setup>
-import type { HasSpuResponseData, Records } from "@/api/product/spu/type";
+import type { HasSpuResponseData, Records,SpuData } from "@/api/product/spu/type";
 import { ref, watch } from "vue";
 import useCategoryStore from "@/store/modules/category";
 import { reqHasSpu } from "@/api/product/spu";
@@ -52,6 +52,7 @@ import SkuForm from './skuForm.vue'
   const pageNo = ref<number>(1)
   const pageSize = ref<number>(3)
   const total = ref<number>(0)
+  let spu = ref<any>('')
 
   watch(() => categoryStore.c3Id, () => {
     if(!categoryStore.c3Id) return
@@ -79,8 +80,9 @@ import SkuForm from './skuForm.vue'
     scene.value = num
   }
 
-  const updateSpu = () => {
+  const updateSpu = (row: SpuData) => {
     scene.value = 1
+    spu.value.initHasSpuData(row)
   }
 </script>
 
