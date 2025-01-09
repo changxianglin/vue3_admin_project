@@ -13,8 +13,8 @@
     </el-form-item>
     <el-form-item label="SUP图片">
       <el-upload
-          v-model:file-list="fileList"
-          action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+          v-model:file-list="imgList"
+          action="/api/admin/product/fileUpload"
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
@@ -83,7 +83,12 @@ const initHasSpuData = async (spu: SpuData) => {
   const result2: SaleAttrResponseData = await reqSpuHasSaleAttr((spu.id as number))
   const result3: HasSaleAttrResponseData = await reqAllSaleAttr()
   AllTradeMark.value = result.data
-  imgList.value = result1.data
+  imgList.value = result1.data.map((item) => {
+    return {
+      name: item.imgName,
+      url: item.imgUrl,
+    }
+  })
   saleAttr.value = result2.data
   allSaleAttr.value = result3.data
 }
