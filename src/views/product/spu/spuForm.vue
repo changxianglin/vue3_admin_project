@@ -34,11 +34,22 @@
         <el-option label="oppo"></el-option>
       </el-select>
       <el-button type="primary" icon="Plus" style='margin-left: 10px;'>添加属性值</el-button>
-      <el-table border style="margin: 10px 0;">
+      <el-table border style="margin: 10px 0;" :data="saleAttr">
         <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
-        <el-table-column label="销售属性名称" width="120px"></el-table-column>
-        <el-table-column label="销售属性值" ></el-table-column>
-        <el-table-column label="操作" width="120px"></el-table-column>
+        <el-table-column label="销售属性名称" width="120px" prop='saleAttrName'></el-table-column>
+        <el-table-column label="销售属性值" >
+          <template #="{row, $index}">
+            <el-tag style="margin: 0px 5px;" v-for="(item, index) in row.spuSaleAttrValueList" :key="row.id">
+              {{ item.saleAttrValueName}}
+            </el-tag>
+            <el-button size="small" icon="Plus"></el-button>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="120px">
+          <template #="{row, $index}">
+            <el-button type="danger" size="small" icon="delete" @click="saleAttr.splice($index, 1)"></el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-form-item>
     <el-form-item>
