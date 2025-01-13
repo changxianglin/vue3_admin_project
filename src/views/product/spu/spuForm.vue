@@ -18,12 +18,13 @@
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
+          :before-upload="handleUpload"
         >
           <el-icon><Plus /></el-icon>
         </el-upload>
 
         <el-dialog v-model="dialogVisible">
-          <img w-full :src="dialogImageUrl" alt="Preview Image" />
+          <img w-full :src="dialogImageUrl" alt="Preview Image" style='width: 100%; height: 100%;' />
         </el-dialog>
     </el-form-item>
     <el-form-item label="SPU销售属性">
@@ -57,6 +58,7 @@ SpuImg,
 SaleAttr,
 HasSaleAttr} from "@/api/product/spu/type";
 import { reqAllTradeMark, reqSpuImageList, reqAllSaleAttr, reqSpuHasSaleAttr } from "@/api/product/spu";
+import { ElMessage } from "element-plus";
 const  $emits = defineEmits(['changeScene'])
 
 const cancel = () => {
@@ -67,6 +69,8 @@ const AllTradeMark = ref<Trademark[]>([])
 const imgList = ref<SpuImg[]>([])
 const saleAttr = ref<SaleAttr[]>([])
 const allSaleAttr = ref<HasSaleAttr[]>([])
+const dialogVisible = ref<boolean>(false)
+const dialogImageUrl = ref<string>('')
 const SpuParams = ref<SpuData>({
   category3Id: '',
   description: '',
@@ -91,6 +95,35 @@ const initHasSpuData = async (spu: SpuData) => {
   })
   saleAttr.value = result2.data
   allSaleAttr.value = result3.data
+}
+
+const handlePictureCardPreview = (file: any) => {
+  dialogImageUrl.value = file.url
+  dialogVisible.value = true
+}
+
+const handleRemove = () => {
+  console.log('delete image')
+}
+
+const handleUpload = (file: any) => {
+  if(file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/gif') {
+    if(file.size / 1024 / 1024 < 3) {
+      return true
+    } else {
+      ElMessage({
+        type: 'error',
+        message: '支持的文件请小于3M'
+      })
+      return false
+    }
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '支持的文件格式为 png|jpeg|gif'
+    })
+    return false
+  }
 }
 
 defineExpose({initHasSpuData})
