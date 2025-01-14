@@ -28,10 +28,8 @@
         </el-dialog>
     </el-form-item>
     <el-form-item label="SPU销售属性">
-      <el-select>
-        <el-option label="华为"></el-option>
-        <el-option label="小米"></el-option>
-        <el-option label="oppo"></el-option>
+      <el-select :placeholder="unSelectSaleAttr.length ? `还未选择${unSelectSaleAttr.length}个` : '无'">
+        <el-option v-for="(item, index) in unSelectSaleAttr" :key='item.id' :label="item.name"></el-option>
       </el-select>
       <el-button type="primary" icon="Plus" style='margin-left: 10px;'>添加属性值</el-button>
       <el-table border style="margin: 10px 0;" :data="saleAttr">
@@ -60,7 +58,7 @@
 </template>
 
 <script lang='ts' setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { 
   SpuData, AllTradeMark, 
   SpuHasImg, SaleAttrResponseData, 
@@ -136,6 +134,16 @@ const handleUpload = (file: any) => {
     return false
   }
 }
+
+const unSelectSaleAttr = computed(() => {
+  const unSelectArr = allSaleAttr.value.filter((item) => {
+    return saleAttr.value.every(item1 => {
+      return item.name != item1.saleAttrName
+    })
+  })
+
+  return unSelectArr
+})
 
 defineExpose({initHasSpuData})
 </script>
