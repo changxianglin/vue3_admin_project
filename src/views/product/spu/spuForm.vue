@@ -28,10 +28,10 @@
         </el-dialog>
     </el-form-item>
     <el-form-item label="SPU销售属性">
-      <el-select :placeholder="unSelectSaleAttr.length ? `还未选择${unSelectSaleAttr.length}个` : '无'">
-        <el-option v-for="(item, index) in unSelectSaleAttr" :key='item.id' :label="item.name"></el-option>
+      <el-select v-model="saleAttrAndValueName" :placeholder="unSelectSaleAttr.length ? `还未选择${unSelectSaleAttr.length}个` : '无'">
+        <el-option :value='`${item.id}:${item.name}`' v-for="(item, index) in unSelectSaleAttr" :key='item.id' :label="item.name"></el-option>
       </el-select>
-      <el-button type="primary" icon="Plus" style='margin-left: 10px;'>添加属性值</el-button>
+      <el-button @click="addSaleAttr" :disabled="saleAttrAndValueName ? false : true" type="primary" icon="Plus" style='margin-left: 10px;'>添加属性</el-button>
       <el-table border style="margin: 10px 0;" :data="saleAttr">
         <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
         <el-table-column label="销售属性名称" width="120px" prop='saleAttrName'></el-table-column>
@@ -63,9 +63,9 @@ import type {
   SpuData, AllTradeMark, 
   SpuHasImg, SaleAttrResponseData, 
   HasSaleAttrResponseData,Trademark, 
-SpuImg,
-SaleAttr,
-HasSaleAttr} from "@/api/product/spu/type";
+  SpuImg,
+  SaleAttr,
+  HasSaleAttr} from "@/api/product/spu/type";
 import { reqAllTradeMark, reqSpuImageList, reqAllSaleAttr, reqSpuHasSaleAttr } from "@/api/product/spu";
 import { ElMessage } from "element-plus";
 const  $emits = defineEmits(['changeScene'])
@@ -88,6 +88,8 @@ const SpuParams = ref<SpuData>({
   spuImageList: [],
   spuSaleAttrList: [],
 })
+
+const saleAttrAndValueName = ref<string>('')
 
 const initHasSpuData = async (spu: SpuData) => {
   SpuParams.value = spu
@@ -144,6 +146,18 @@ const unSelectSaleAttr = computed(() => {
 
   return unSelectArr
 })
+
+const addSaleAttr = () => {
+  const [baseSaleAttrId, saleAttrName] = saleAttrAndValueName.value.split(':')
+  const newSaleAttr: SaleAttr = {
+    baseSaleAttrId, 
+    saleAttrName,
+    spuSaleAttrValueList: [],
+  }
+
+  saleAttr.value.push(newSaleAttr)
+  saleAttrAndValueName.value = ''
+}
 
 defineExpose({initHasSpuData})
 </script>
