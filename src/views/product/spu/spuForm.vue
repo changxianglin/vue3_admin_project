@@ -37,10 +37,11 @@
         <el-table-column label="销售属性名称" width="120px" prop='saleAttrName'></el-table-column>
         <el-table-column label="销售属性值" >
           <template #="{row, $index}">
-            <el-tag style="margin: 0px 5px;" v-for="(item, index) in row.spuSaleAttrValueList" :key="row.id">
+            <el-tag style="margin: 0px 5px;" v-for="(item, index) in row.spuSaleAttrValueList" :key="row.id" @close="row.spuSaleAttrValueList.split(index, 1)">
               {{ item.saleAttrValueName}}
             </el-tag>
-            <el-button size="small" icon="Plus"></el-button>
+            <el-input @blur="toLook(row)" v-model="row.saleAttrValue" v-if="row.flag==true" placeholder="请输入属性值" size='small' style="width: 100px;"></el-input>
+            <el-button @click="toEdit(row)" v-else size="small" icon="Plus"></el-button>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="120px">
@@ -63,7 +64,7 @@ import type {
   SpuData, AllTradeMark, 
   SpuHasImg, SaleAttrResponseData, 
   HasSaleAttrResponseData,Trademark, 
-  SpuImg,
+  SpuImg, SaleAttrValue,
   SaleAttr,
   HasSaleAttr} from "@/api/product/spu/type";
 import { reqAllTradeMark, reqSpuImageList, reqAllSaleAttr, reqSpuHasSaleAttr } from "@/api/product/spu";
@@ -157,6 +158,42 @@ const addSaleAttr = () => {
 
   saleAttr.value.push(newSaleAttr)
   saleAttrAndValueName.value = ''
+}
+
+const toEdit = (row: SaleAttr) => {
+  row.flag = true
+  row.saleAttrValue = ''
+}
+
+const toLook = (row: SaleAttr) => {
+  const { baseSaleAttrId, saleAttrValue } = row 
+  const newSaleAttrValue: SaleAttrValue = {
+    baseSaleAttrId,
+    saleAttrValueName: (saleAttrValue as string),
+  }
+
+  if(saleAttrValue?.trim() == '') {
+    ElMessage({
+      type: 'error',
+      message: '属性值不能为空',
+    })
+    return 
+  }
+
+  const repeat = row.spuSaleAttrValueList.find((item) => {
+    return item.saleAttrValueName == saleAttrValue
+  })
+  if(repeat) {
+    ElMessage({
+      type: 'error',
+      message: '属性值不能重复',
+    })
+    return 
+  }
+
+  row.spuSaleAttrValueList.push(newSaleAttrValue)
+
+  row.flag = false
 }
 
 defineExpose({initHasSpuData})
