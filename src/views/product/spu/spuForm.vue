@@ -52,7 +52,7 @@
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary">保存</el-button>
+      <el-button type="primary" @click="save">保存</el-button>
       <el-button @click="cancel">取消</el-button>
     </el-form-item>
   </el-form>
@@ -67,7 +67,11 @@ import type {
   SpuImg, SaleAttrValue,
   SaleAttr,
   HasSaleAttr} from "@/api/product/spu/type";
-import { reqAllTradeMark, reqSpuImageList, reqAllSaleAttr, reqSpuHasSaleAttr } from "@/api/product/spu";
+import { 
+  reqAllTradeMark, reqSpuImageList, 
+  reqAllSaleAttr, reqSpuHasSaleAttr,
+  reqAddOrUpdateSpu,
+ } from "@/api/product/spu";
 import { ElMessage } from "element-plus";
 const  $emits = defineEmits(['changeScene'])
 
@@ -194,6 +198,26 @@ const toLook = (row: SaleAttr) => {
   row.spuSaleAttrValueList.push(newSaleAttrValue)
 
   row.flag = false
+}
+
+const save = async () => {
+  SpuParams.value.spuImageList = imgList.value.map((item: any) => {
+    return {
+      imgName: item.name,
+      imgUrl: (item.response&&item.response.data) || item.url,
+    }
+  })
+
+  SpuParams.value.spuSaleAttrList = saleAttr.value
+
+  let result =  await reqAddOrUpdateSpu(SpuParams.value)
+
+  if(result.code == 200) {
+    ElMessage({
+      type: 'success',
+      message: SpuParams.id ? '更新成功' : '添加成功'
+    })
+  }
 }
 
 defineExpose({initHasSpuData})
