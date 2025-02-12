@@ -52,7 +52,7 @@
       </el-table>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="save">保存</el-button>
+      <el-button :disabled="saleAttr.length > 0 ? false : true" type="primary" @click="save">保存</el-button>
       <el-button @click="cancel">取消</el-button>
     </el-form-item>
   </el-form>
@@ -215,7 +215,13 @@ const save = async () => {
   if(result.code == 200) {
     ElMessage({
       type: 'success',
-      message: SpuParams.id ? '更新成功' : '添加成功'
+      message: SpuParams.value.id ? '更新成功' : '添加成功'
+    })
+    $emits('changeScene', 0)
+  } else {
+    ElMessage({
+      type: 'error',
+      message: SpuParams.value.id ? '更新失败' : '添加失败'
     })
   }
 }

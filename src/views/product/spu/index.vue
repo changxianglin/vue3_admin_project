@@ -78,6 +78,8 @@ import SkuForm from './skuForm.vue'
 
   const changeScene = (num: number) => {
     scene.value = num
+
+    getHasSpu()
   }
 
   const updateSpu = (row: SpuData) => {
