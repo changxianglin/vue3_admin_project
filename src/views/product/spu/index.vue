@@ -74,6 +74,7 @@ import SkuForm from './skuForm.vue'
 
   const addSpu = () => {
     scene.value = 1
+    spu.value.initAddSpu()
   }
 
   const changeScene = (num: number) => {

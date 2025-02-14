@@ -226,7 +226,25 @@ const save = async () => {
   }
 }
 
-defineExpose({initHasSpuData})
+const initAddSpu = async (c3Id: number|string) => {
+  Object.assign(SpuParams.value, {
+    category3Id: '',
+    description: '',
+    spuName: '',
+    tmId: '',
+    spuImageList: [],
+    spuSaleAttrList: [],
+  })
+  imgList.value = []
+  saleAttr.value = []
+  SpuParams.value.category3Id = c3Id
+  const result: AllTradeMark = await reqAllTradeMark()
+  const result1: HasSaleAttrResponseData = await reqAllSaleAttr()
+  AllTradeMark.value = result.data
+  allSaleAttr.value = result1.data
+}
+
+defineExpose({initHasSpuData, initAddSpu})
 </script>
 
 <style lang='less' scoped>
