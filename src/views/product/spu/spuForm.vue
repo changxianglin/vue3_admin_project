@@ -73,10 +73,14 @@ import {
   reqAddOrUpdateSpu,
  } from "@/api/product/spu";
 import { ElMessage } from "element-plus";
+import { Flag } from "@element-plus/icons-vue";
 const  $emits = defineEmits(['changeScene'])
 
 const cancel = () => {
-  $emits('changeScene', 0)
+  $emits('changeScene', {
+    flag: 0,
+    params: 'update',
+  })
 }
 
 const AllTradeMark = ref<Trademark[]>([])
@@ -217,7 +221,10 @@ const save = async () => {
       type: 'success',
       message: SpuParams.value.id ? '更新成功' : '添加成功'
     })
-    $emits('changeScene', 0)
+    $emits('changeScene', {
+      flag: 0,
+      params: SpuParams.value.id ? 'update': 'add'
+    })
   } else {
     ElMessage({
       type: 'error',
@@ -237,6 +244,7 @@ const initAddSpu = async (c3Id: number|string) => {
   })
   imgList.value = []
   saleAttr.value = []
+  saleAttrAndValueName.value = ''
   SpuParams.value.category3Id = c3Id
   const result: AllTradeMark = await reqAllTradeMark()
   const result1: HasSaleAttrResponseData = await reqAllSaleAttr()

@@ -77,10 +77,13 @@ import SkuForm from './skuForm.vue'
     spu.value.initAddSpu()
   }
 
-  const changeScene = (num: number) => {
-    scene.value = num
-
-    getHasSpu()
+  const changeScene = (obj: any) => {
+    scene.value = obj.flag
+    if(obj.params == 'update') {
+      getHasSpu(pageNo.value)
+    } else {
+      getHasSpu()
+    }
   }
 
   const updateSpu = (row: SpuData) => {
