@@ -4,7 +4,7 @@
   <el-popover placement="bottom" title="主题设置" :width="300" trigger="hover">
     <el-form>
       <el-form-item label="主题颜色">
-        <el-color-picker size="small" v-model="color" show-alpha :predefine="predefineColors" />
+        <el-color-picker @change="setColor" size="small" v-model="color" show-alpha :predefine="predefineColors" />
       </el-form-item>
       <el-form-item size="small" label="暗黑模式">
         <el-switch @change="changeDark" v-model="dark" class="mt-2" style="margin-left: 24px" inline-prompt active-icon="MoonNight"
@@ -92,6 +92,11 @@ const predefineColors = ref([
 const changeDark = () => {
   const html = document.documentElement
   dark.value ? html.className = 'dark' : html.className = ''
+}
+
+const setColor = () => {
+  const html = document.documentElement
+  html.style.setProperty('--el-color-primary', color.value)
 }
 </script>
 
