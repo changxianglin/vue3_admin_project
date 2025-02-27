@@ -10,16 +10,17 @@
       :total="400"
     />
   </div> -->
-  <div>
     <!-- <h1>test axios request</h1>
     <h1>test</h1>
     <h3>svg test</h3>
     <SvgIcon name="phone" color="red" width="100px" height="100px" /> -->
-    <router-view v-slot="{ Component }">
+    <!-- <router-view v-slot="{ Component }">
       <keep-alive :include="[cachesPage]">
         <component :is="Component" />
       </keep-alive>
-    </router-view>
+    </router-view> -->
+    <div>
+    <router-view />
   </div>
 </template>
 
