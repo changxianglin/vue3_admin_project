@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <!-- <div class="screen" ref="screen">
+    <div class="screen" ref="screen">
       <div class="top">top</div>
       <div class="bottom">
         <div class="left">left</div>
         <div class="center">center</div>
         <div class="right">right</div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import { ref, onMounted } from 'vue'
 const screen = ref()
 
 onMounted(() => {
-  // screen.value.style.transform = `scale(${getScale()}) translate(-50%, -50%)`
+  screen.value.style.transform = `scale(${getScale()}) translate(-50%, -50%)`
 })
 
 function getScale(w = 1920, h = 1080) {
@@ -40,6 +40,7 @@ function getScale(w = 1920, h = 1080) {
       background: red;
       left: 50%;
       top: 50%;
+      transform-origin: left top;
     }
   }
 </style>
