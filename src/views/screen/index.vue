@@ -40,7 +40,7 @@ function getScale(w = 1920, h = 1080) {
       position: fixed;
       width: 1920px;
       height: 1080px;
-      background: red;
+      // background: red;
       left: 50%;
       top: 50%;
       transform-origin: left top;
