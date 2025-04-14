@@ -5,7 +5,11 @@
         <Top />
       </div>
       <div class="bottom">
-        <div class="left">left</div>
+        <div class="left">
+          <Tourist class="tourtist"/>
+          <Sex class="sex"/>
+          <Age class="age"/>
+        </div>
         <div class="center">center</div>
         <div class="right">right</div>
       </div>
@@ -16,6 +20,9 @@
 <script lang='ts' setup>
 import { ref, onMounted } from 'vue'
 import Top from './components/top/index.vue'
+import Tourist from './components/tourist/index.vue'
+import Sex from './components/sex/index.vue'
+import Age from './components/age/index.vue'
 
 const screen = ref()
 
@@ -52,6 +59,19 @@ function getScale(w = 1920, h = 1080) {
         display: flex;
         .left {
           flex: 1;
+          height: 1040px;
+          display: flex;
+          flex-direction: column;
+
+          .tourtist {
+            flex: 1.5;
+          }
+          .sex {
+            flex: 1;
+          }
+          .age {
+            flex: 1;
+          }
         }
         .right {
           flex: 1;
