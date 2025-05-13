@@ -8,13 +8,39 @@
     <div class="number">
       <span v-for="(item, index) in pople" :key="index">{{ item }}</span>
     </div>
-    <div class="charts">123</div>
+    <div class="charts" ref="charts"></div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import * as echarts from 'echarts'
+import 'echarts-liquidfill'
 const pople = ref<string>('216908人')
+
+const charts = ref()
+
+onMounted(() => {
+  const mycharts = echarts.init(charts.value)
+  mycharts.setOption({
+    title: {
+      text: '水球图'
+    },
+    xAxis: {},
+    yAxis: {},
+    series: {
+      type: 'liquidFill',
+      data: [0.6, 0.4, 0.2],
+      radius: '100%',
+    },
+    grid: {
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+    }
+  })
+})
 </script>
 
 <style lang='scss' scoped>
@@ -57,6 +83,10 @@ const pople = ref<string>('216908人')
         background-size: 100% 100%;
         color: #29fcff;
       }
+    }
+    .charts {
+      width: 100%;
+      height: 240px;
     }
   }
 </style>
