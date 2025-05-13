@@ -64,7 +64,7 @@ function getScale(w = 1920, h = 1080) {
           flex-direction: column;
 
           .tourtist {
-            flex: 1.5;
+            flex: 1.2;
           }
           .sex {
             flex: 1;
