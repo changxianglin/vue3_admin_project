@@ -10,7 +10,10 @@
           <Sex class="sex"/>
           <Age class="age"/>
         </div>
-        <div class="center">center</div>
+        <div class="center">
+          <Map />
+          <Line />
+        </div>
         <div class="right">right</div>
       </div>
     </div>
@@ -23,6 +26,8 @@ import Top from './components/top/index.vue'
 import Tourist from './components/tourist/index.vue'
 import Sex from './components/sex/index.vue'
 import Age from './components/age/index.vue'
+import Map from './components/map/index.vue'
+import Line from './components/line/index.vue'
 
 const screen = ref()
 
@@ -78,6 +83,15 @@ function getScale(w = 1920, h = 1080) {
         }
         .center {
           flex: 2;
+          display: flex;
+          flex-direction: column;
+          .map {
+            flex: 4;
+          }
+          .line {
+            flex: 1;
+            background-color: orange;
+          }
         }
       }
     }

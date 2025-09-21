@@ -29,3 +29,6 @@ pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node
 eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser
 
 ### 84
+
+#### map.json
+https://datav.aliyun.com/portal/school/atlas/area_selector
