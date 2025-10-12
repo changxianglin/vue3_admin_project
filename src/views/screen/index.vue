@@ -90,7 +90,6 @@ function getScale(w = 1920, h = 1080) {
           }
           .line {
             flex: 1;
-            background-color: orange;
           }
         }
       }

@@ -18,7 +18,26 @@ onMounted(() => {
   mycharts.setOption({
     geo: {
       map: 'china',
-    }
+      roam: true,
+      left: 50,
+      top: 100,
+      right: 50,
+      bottom: 50,
+      label: {
+        show: true,
+      }
+    },
+    grid: {
+      left: 0,
+      top: 0,
+      bottom: 0,
+      right: 0,
+    },
+    series: [
+      {
+        type: 'lines'
+      }
+    ]
   })
 })
 </script>
