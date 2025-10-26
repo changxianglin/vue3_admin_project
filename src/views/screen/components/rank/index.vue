@@ -22,7 +22,67 @@ onMounted(() => {
   myCharts.setOption({
     title: {
       text: '景区排行',
-    }
+      link: 'https://cn.bing.com/',
+      left: '50%',
+      textStyle: {
+        color: 'yellowgreen',
+        fontSize: 20,
+      },
+      subtext: '各大景区排行',
+      subtextStyle: {
+        color: 'yellowgreen',
+        fontSize: 15,
+      },
+    },
+    xAxis: {
+      type: 'category',
+    },
+    yAxis: {},
+    grid: {
+      left: 20,
+      bottom: 20,
+      right: 20,
+    },
+    series: [
+      {
+        type: 'bar',
+        data: [10, 20, 30, 40, 50, 60, 70],
+        label: {
+          show: true,
+          position: 'insideTop',
+          color: 'yellowgreen',
+        },
+        showBackground: true,
+        backgroundStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0, color: 'black',
+            }, {
+              offset: 1, color: 'blue',
+            }],
+            global: false,
+          }
+        },
+        itemStyle: {
+          borderRadius: [10, 10, 0, 0],
+          color: function(data: any) {
+            const arrs = ['red', 'orange', 'yellowgreen', 'green', 'purple', 'hotpink', 'skyblue']
+            return arrs[data.dataIndex]
+          }
+        }
+      },
+      {
+        type: 'line',
+        data: [10, 20, 30, 40, 50, 60, 90],
+        smooth: true,
+      }
+    ],
+    tooltip: {},
   })
 })
 
