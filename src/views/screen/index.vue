@@ -94,11 +94,9 @@ function getScale(w = 1920, h = 1080) {
           }
           .year {
             flex: 1;
-            background: cyan;
           }
           .couter {
             flex: 1;
-            background: purple;
           }
         }
         .center {

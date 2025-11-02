@@ -35,7 +35,10 @@ onMounted(() => {
     },
     series: [
       {
-        type: 'lines'
+        type: 'lines',
+        data: [
+          
+        ]
       }
     ]
   })
