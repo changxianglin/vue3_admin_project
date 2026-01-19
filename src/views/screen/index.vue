@@ -89,6 +89,7 @@ function getScale(w = 1920, h = 1080) {
           flex: 1;
           display: flex;
           flex-direction: column;
+          margin-left: 40px;
           .rank {
             flex: 1.5;
           }
