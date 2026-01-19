@@ -13,7 +13,7 @@ export const constantRoute = [
     path: '/',
     name: 'layout',
     component: () => import('@/layout/index.vue'),
-    redirect: 'home', 
+    redirect: 'home',
     meta: {
       title: '',
       hidden: false,
@@ -30,7 +30,7 @@ export const constantRoute = [
         },
       },
     ]
-  }, 
+  },
   {
     path: '/screen',
     name: 'screen',
@@ -41,6 +41,29 @@ export const constantRoute = [
       icon: 'Platform',
     },
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('@/views/test/index.vue'),
+    meta: {
+      title: 'test',
+      hidden: true,
+      icon: 'Cellphone',
+    },
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/404/index.vue'),
+    meta: {
+      title: '404',
+      hidden: true,
+      icon: 'Cellphone',
+    },
+  },
+]
+
+export const asyncRoute = [
   {
     path: '/acl',
     name: 'acl',
@@ -95,69 +118,52 @@ export const constantRoute = [
       icon: 'Goods',
     },
     children: [
-        {
-          path: '/product/trademark',
-          name: 'trademark',
-          component: () => import('@/views/product/trademark/index.vue'),
-          meta: {
-            title: '品牌管理',
-            icon: 'ShoppingCartFull',
-            hidden: false,
-          },
+      {
+        path: '/product/trademark',
+        name: 'trademark',
+        component: () => import('@/views/product/trademark/index.vue'),
+        meta: {
+          title: '品牌管理',
+          icon: 'ShoppingCartFull',
+          hidden: false,
         },
-        {
-          path: '/product/attr',
-          name: 'attr',
-          component: () => import('@/views/product/attr/index.vue'),
-          meta: {
-            title: '属性管理',
-            icon: 'ChromeFilled',
-            hidden: false,
-          },
+      },
+      {
+        path: '/product/attr',
+        name: 'attr',
+        component: () => import('@/views/product/attr/index.vue'),
+        meta: {
+          title: '属性管理',
+          icon: 'ChromeFilled',
+          hidden: false,
         },
-        {
-          path: '/product/spu',
-          name: 'spu',
-          component: () => import('@/views/product/spu/index.vue'),
-          meta: {
-            title: 'spu管理',
-            icon: 'Calendar',
-            hidden: false,
-          },
+      },
+      {
+        path: '/product/spu',
+        name: 'spu',
+        component: () => import('@/views/product/spu/index.vue'),
+        meta: {
+          title: 'spu管理',
+          icon: 'Calendar',
+          hidden: false,
         },
-        {
-          path: '/product/sku',
-          name: 'sku',
-          component: () => import('@/views/product/sku/index.vue'),
-          meta: {
-            title: 'sku管理',
-            icon: 'Orange',
-            hidden: false,
-          },
+      },
+      {
+        path: '/product/sku',
+        name: 'sku',
+        component: () => import('@/views/product/sku/index.vue'),
+        meta: {
+          title: 'sku管理',
+          icon: 'Orange',
+          hidden: false,
         },
+      },
     ],
   },
-  {
-    path: '/test',
-    name: 'test',
-    component: () => import('@/views/test/index.vue'),
-    meta: {
-      title: 'test',
-      hidden: true,
-      icon: 'Cellphone',
-    },
-  },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/404/index.vue'),
-    meta: {
-      title: '404',
-      hidden: true,
-      icon: 'Cellphone',
-    },
-  },
-  {
+]
+
+export const anyRoute = [
+    {
     path: '/:pathMatch(.*)*',
     name: 'Any',
     redirect: '/404',
